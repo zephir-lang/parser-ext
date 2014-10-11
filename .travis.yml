@@ -20,8 +20,11 @@ install:
   - make -j2
   - sudo make install
   - cd ..
-  - echo 'extension="zephir_parser.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - ulimit -c unlimited || true
+
+before_script:
+  - echo 'extension="zephir_parser.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - phpenv config-rm xdebug.ini
 
 script:
   - valgrind --read-var-info=yes --error-exitcode=1 --fullpath-after= --track-origins=yes --leak-check=full phpunit --debug
