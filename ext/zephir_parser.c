@@ -34,11 +34,11 @@ ZEND_GET_MODULE(zephir_parser)
  */
 PHP_FUNCTION(zephir_parse_file) {
     char *filename;
+    int filename_len = 0;
 
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &filename) != SUCCESS) {
+    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &filename, &filename_len) != SUCCESS) {
         return;
     }
 
     array_init(return_value);
-    return;
 }

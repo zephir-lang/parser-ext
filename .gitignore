@@ -15,3 +15,14 @@
 .deps
 Makefile*
 ext/configure*
+ext/acinclude.m4
+ext/aclocal.m4
+ext/autom4te.cache/
+ext/build/
+ext/config.*
+ext/install-sh
+ext/libtool
+ext/ltmain.sh
+ext/missing
+ext/mkinstalldirs
+ext/run-tests.php
