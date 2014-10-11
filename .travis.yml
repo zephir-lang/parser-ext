@@ -14,11 +14,14 @@ before_install:
 install:
   - ./generate
   - cd ext
+  - export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall -fvisibility=hidden"
   - phpize
-  - ./configure --enable-zephir-parser
-  - make && make install
+  - ./configure --silent --enable-zephir-parser
+  - make -j2
+  - sudo make install
   - cd ..
   - echo 'extension="zephir_parser.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - ulimit -c unlimited || true
 
 script:
-  - valgrind phpunit --debug
+  - valgrind --read-var-info=yes --error-exitcode=1 --fullpath-after= --track-origins=yes --leak-check=full phpunit --debug
