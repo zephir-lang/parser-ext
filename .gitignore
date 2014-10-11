@@ -3,6 +3,15 @@
 /scanner/scanner.c
 
 # Extension
-*.lo
+*~
 *.o
+*.os
+*.lo
+*.so
+*.dylib
+*.la
+*.lai
+*.libs
 .deps
+Makefile*
+ext/configure*

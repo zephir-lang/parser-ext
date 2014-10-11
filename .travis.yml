@@ -1,0 +1,24 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+
+before_install:
+  - phpenv rehash
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq re2c valgrind
+
+install:
+  - ./generate
+  - cd ext
+  - phpize
+  - ./configure --enable-zephir-parser
+  - make && make install
+  - cd ..
+  - echo 'extension="zephir_parser.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+script:
+  - valgrind phpunit --debug
