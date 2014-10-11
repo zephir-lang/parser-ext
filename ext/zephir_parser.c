@@ -44,7 +44,7 @@ PHP_FUNCTION(zephir_parse_file) {
     php_stream *stream;
     int filename_len, contents_len;
     long maxlen = PHP_STREAM_COPY_ALL;
-    zval *zcontext = NULL;
+    zval *zcontext = NULL, *parsed_program = NULL;
     php_stream_context *context = NULL;
 
     if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &filename, &filename_len) != SUCCESS) {
@@ -57,10 +57,12 @@ PHP_FUNCTION(zephir_parse_file) {
         return;
     }
 
-    if ((contents_len = php_stream_copy_to_mem(stream, &contents, maxlen, 0)) > 0) {
-        zephir_parse_program(&return_value, contents, contents_len, filename, NULL TSRMLS_CC);
+    contents_len = php_stream_copy_to_mem(stream, &contents, maxlen, 0);
+    if (contents_len > 0) {
+        zephir_parse_program(&parsed_program, contents, contents_len, filename, NULL TSRMLS_CC);
+        ZVAL_COPY_VALUE(return_value, parsed_program);
+        zval_copy_ctor(return_value);
         efree(contents);
     }
-
     php_stream_close(stream);
 }

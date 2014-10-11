@@ -160,8 +160,8 @@ static zval *zephir_ret_literal(int type, zephir_parser_token *T, zephir_scanner
 
     if (T) {
         zephir_array_add(ret, "value", zephir_new_string(T->token));
-        efree(T->token);
-        efree(T);
+        // efree(T->token);
+        // efree(T);
     }
 
     zephir_add_active_file(ret, state);
@@ -216,9 +216,8 @@ static zval *zephir_ret_namespace(zephir_parser_token *T, zephir_scanner_state *
 
     zephir_array_add(ret, "type", zephir_new_string("namespace"));
     zephir_array_add(ret, "name", zephir_new_string(T->token));
-
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     zephir_add_active_file(ret, state);
     zephir_add_active_line(ret, state);
@@ -254,8 +253,8 @@ static zval *zephir_ret_use_aliases_item(zephir_parser_token *T, zephir_parser_t
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -272,8 +271,8 @@ static zval *zephir_ret_class(zephir_parser_token *T, zval *class_definition, in
 
     if (E) {
         zephir_array_add(ret, "extends", zephir_new_string(E->token));
-        efree(E->token);
-        efree(E);
+        // efree(E->token);
+        // efree(E);
     }
 
     if (I) {
@@ -288,8 +287,8 @@ static zval *zephir_ret_class(zephir_parser_token *T, zval *class_definition, in
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -313,8 +312,8 @@ static zval *zephir_ret_interface(zephir_parser_token *T, zval *interface_defini
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -372,8 +371,8 @@ static zval *zephir_ret_class_property(zval *visibility, zephir_parser_token *T,
 
     if (D) {
         zephir_array_add(ret, "docblock", zephir_new_string(D->token));
-        efree(D->token);
-        efree(D);
+        // efree(D->token);
+        // efree(D);
     }
 
     if (shortcuts) {
@@ -384,8 +383,8 @@ static zval *zephir_ret_class_property(zval *visibility, zephir_parser_token *T,
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -404,8 +403,8 @@ static zval *zephir_ret_property_shortcut(zephir_parser_token *C, zephir_parser_
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(D->token);
-    D->free_flag = 0;
+    // efree(D->token);
+    // D->free_flag = 0;
 
     return ret;
 }
@@ -426,8 +425,8 @@ static zval *zephir_ret_class_const(zephir_parser_token *T, zval *default_value,
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -450,8 +449,8 @@ static zval *zephir_ret_class_method(zval *visibility, zephir_parser_token *T, z
 
     if (D) {
         zephir_array_add(ret, "docblock", zephir_new_string(D->token));
-        efree(D->token);
-        efree(D);
+        // efree(D->token);
+        // efree(D);
     }
 
     if (return_type) {
@@ -462,8 +461,8 @@ static zval *zephir_ret_class_method(zval *visibility, zephir_parser_token *T, z
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -497,8 +496,8 @@ static zval *zephir_ret_parameter(int const_param, zval *type, zval *cast, zephi
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(N->token);
-    efree(N);
+    // efree(N->token);
+    // efree(N);
 
     return ret;
 }
@@ -1067,7 +1066,8 @@ static zval *zephir_ret_declare_statement(int type, zval *variables, zephir_scan
             break;
 
         default:
-            fprintf(stderr, "err 2?\n");
+            zephir_array_add(ret, "data-type", zephir_new_string("unknown"));
+            break;
     }
 
     zephir_array_add(ret, "variables", variables);
@@ -1092,8 +1092,8 @@ static zval *zephir_ret_declare_variable(zephir_parser_token *T, zval *expr, zep
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -1114,8 +1114,8 @@ static zval *zephir_ret_new_instance(int dynamic, zephir_parser_token *T, zval *
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -1223,8 +1223,8 @@ static zval *zephir_ret_comment(zephir_parser_token *T, zephir_scanner_state *st
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -1240,8 +1240,8 @@ static zval *zephir_ret_cblock(zephir_parser_token *T, zephir_scanner_state *sta
     zephir_add_active_line(ret, state);
     zephir_add_active_char(ret, state);
 
-    efree(T->token);
-    efree(T);
+    // efree(T->token);
+    // efree(T);
 
     return ret;
 }
@@ -1294,7 +1294,9 @@ program ::= zephir_language(Q) . {
     status->ret = Q;
 }
 
-%destructor zephir_language { zval_ptr_dtor(&$$); }
+%destructor zephir_language {
+    zval_ptr_dtor(&$$);
+}
 
 zephir_language(R) ::= zephir_top_statement_list(L) . {
     R = L;
