@@ -556,25 +556,12 @@ int zephir_parse_program(zval **return_value, char *program, unsigned int progra
 
     zephir_Free(zephir_parser, zephir_wrapper_free);
 
-    if (status != FAILURE) {
-        if (parser_status->status == ZEPHIR_PARSING_OK) {
-            //printf("%s\n", json_object_to_json_string(parser_status->ret));
-            /*if (parser_status->ret) {
-                ZVAL_ZVAL(*result, parser_status->ret, 0, 0);
-                ZVAL_NULL(parser_status->ret);
-                zval_ptr_dtor(&parser_status->ret);
-            } else {
-                array_init(*result);
-            }*/
-        }
-    }
-
     if (parser_status->ret) {
         *return_value = parser_status->ret;
     }
 
-    free(parser_status);
-    free(state);
+    efree(parser_status);
+    efree(state);
 
     return status;
 }
