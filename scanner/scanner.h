@@ -156,8 +156,8 @@
 
 /* List of tokens and their names */
 typedef struct _zephir_token_names {
-	unsigned int code;
-	char *name;
+    unsigned int code;
+    char *name;
 } zephir_token_names;
 
 /* Active token state */
