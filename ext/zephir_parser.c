@@ -12,6 +12,13 @@
 #include <ext/standard/file.h>
 #include <ext/standard/php_filestat.h>
 
+/** Compatibility with PHP 5.3 */
+#ifndef ZVAL_COPY_VALUE
+    #define ZVAL_COPY_VALUE(z, v)\
+            (z)->value = (v)->value;\
+            Z_TYPE_P(z) = Z_TYPE_P(v);
+#endif
+
 static zend_function_entry zephir_parser_functions[] = {
     PHP_FE(zephir_parse_file, NULL)
     {NULL, NULL, NULL}
