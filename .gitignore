@@ -1,3 +1,8 @@
 /lemon/lemon
 /parser/parser.h
 /scanner/scanner.c
+
+# Extension
+*.lo
+*.o
+.deps
