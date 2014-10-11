@@ -3,6 +3,7 @@
 /parser/parser.c
 /parser/parser.out
 /scanner/scanner.c
+/.vagrant/
 
 # Extension
 *~
