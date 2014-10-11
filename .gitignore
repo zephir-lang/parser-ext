@@ -1,5 +1,7 @@
 /lemon/lemon
 /parser/parser.h
+/parser/parser.c
+/parser/parser.out
 /scanner/scanner.c
 
 # Extension
