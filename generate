@@ -1,0 +1,18 @@
+#!/bin/sh
+
+LEMON_EXECUTABLE="lemon/lemon"
+
+#Compile lemon
+if [ ! -f $LEMON_EXECUTABLE ]; then
+    gcc -w lemon/lemon.c -o $LEMON_EXECUTABLE
+fi
+
+TEST=$(re2c -v)
+if [ $? != 2 ]; then
+  echo "re2c is not installed"
+  exit 2
+fi
+
+re2c -o scanner/scanner.c scanner/scanner.re
+$LEMON_EXECUTABLE -s parser/parser.lemon
+cat parser/base.c >> parser/parser.c
