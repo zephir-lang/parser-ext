@@ -16,5 +16,6 @@ class ZephirParserTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull(zephir_parse_file(__DIR__ . '/fixtures/EmptyFile.zep'));
         $this->assertNotEmpty(zephir_parse_file(__DIR__ . '/fixtures/EmptyClass.zep'));
+        $this->assertNotEmpty(zephir_parse_file(__DIR__ . '/fixtures/ClassWithMethod.zep'));
     }
 }
