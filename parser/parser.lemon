@@ -1282,12 +1282,12 @@ static zval *zephir_ret_cblock(zephir_parser_token *T, zephir_scanner_state *sta
 }
 
 %token_destructor {
-    if ($$) {
-        if ($$->free_flag) {
-            efree($$->token);
-        }
-        efree($$);
-    }
+    // if ($$) {
+    //     if ($$->free_flag) {
+    //         efree($$->token);
+    //     }
+    //     efree($$);
+    // }
 }
 
 program ::= zephir_language(Q) . {
@@ -1295,7 +1295,7 @@ program ::= zephir_language(Q) . {
 }
 
 %destructor zephir_language {
-    zval_ptr_dtor(&$$);
+    // zval_ptr_dtor(&$$);
 }
 
 zephir_language(R) ::= zephir_top_statement_list(L) . {
