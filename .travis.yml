@@ -12,19 +12,14 @@ before_install:
   - sudo apt-get install -qq re2c valgrind
 
 install:
-  - ./generate
-  - cd ext
-  - export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall -fvisibility=hidden"
-  - phpize
-  - ./configure --silent --enable-zephir-parser
-  - make -j2
-  - sudo make install
-  - cd ..
-  - ulimit -c unlimited || true
+  - make lemon
+  - make parser
+  - make extension
 
 before_script:
   - echo 'extension="zephir_parser.so"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - phpenv config-rm xdebug.ini
+  - ulimit -c unlimited || true
 
 script:
   - valgrind --read-var-info=yes --error-exitcode=1 --fullpath-after= --track-origins=yes --leak-check=full phpunit --debug
