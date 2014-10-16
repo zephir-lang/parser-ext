@@ -16,7 +16,7 @@
 *.lai
 *.libs
 .deps
-Makefile*
+ext/Makefile*
 ext/configure*
 ext/acinclude.m4
 ext/aclocal.m4
